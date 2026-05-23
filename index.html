@@ -105,7 +105,6 @@
   .sticky-cta .sticky-label { font-size: 12px; color: var(--muted); flex: 1; }
   .sticky-cta a { background: var(--green); color: var(--black); font-weight: 800; font-size: 14px; padding: 12px 22px; border-radius: 8px; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
 
-  /* TOAST */
   #toast { position: fixed; bottom: 80px; left: 16px; background: #1E1E1E; border: 1px solid #2A2A2A; border-left: 3px solid var(--green); border-radius: 10px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; max-width: 280px; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.4); transform: translateX(-320px); transition: transform 0.4s ease; }
 
   @media (max-width: 480px) {
@@ -236,9 +235,9 @@
         <span style="font-size:13px;color:#BBBBBB"><span id="online-count" style="color:var(--white);font-weight:700">--</span> pessoas estao nessa pagina agora</span>
       </div>
 
-      <a href="https://wa.me/5548996960043?text=EU%20QUERO" class="cta-btn" target="_blank">
+      <a href="https://go.hotmart.com/F105964457X" class="cta-btn" target="_blank">
         QUERO O EBOOK POR R$57
-        <small>Clique &middot; Pague via Pix &middot; Receba na hora</small>
+        <small>Clique &middot; Pague via Pix, cartao ou boleto &middot; Receba na hora</small>
       </a>
     </div>
 
@@ -268,7 +267,7 @@
     <p>Pagamento processado pela Hotmart. Apos confirmar, o acesso ao ebook e liberado automaticamente. Sem espera, sem burocracia.</p>
   </div>
   <div class="faq-item">
-    <h4>Qual e a chave Pix?</h4>
+    <h4>Quais formas de pagamento sao aceitas?</h4>
     <p>Pagamento processado pela Hotmart. Aceita Pix, cartao e boleto.</p>
   </div>
 </div>
@@ -277,9 +276,9 @@
   <div class="section" style="text-align:center;padding-top:48px;padding-bottom:48px">
     <p style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--white);margin-bottom:8px;line-height:1.1">Sua mina de ouro esta na<br><span style="color:var(--green)">base que voce ja tem.</span></p>
     <p style="color:var(--muted);font-size:15px;margin-bottom:28px">R$57 para aprender a ativar. So hoje.</p>
-    <a href="https://wa.me/5548996960043?text=EU%20QUERO" class="cta-btn" target="_blank" style="max-width:360px">
+    <a href="https://go.hotmart.com/F105964457X" class="cta-btn" target="_blank" style="max-width:360px">
       QUERO O EBOOK POR R$57
-      <small>Clique &middot; Pague via Pix &middot; Receba na hora</small>
+      <small>Clique &middot; Pague via Pix, cartao ou boleto &middot; Receba na hora</small>
     </a>
   </div>
 </div>
@@ -296,7 +295,7 @@
     <div class="sticky-price">R$57</div>
   </div>
   <div class="sticky-label">Ebook Clientes que Indicam</div>
-  <a href="https://wa.me/5548996960043?text=EU%20QUERO" target="_blank">QUERO &rarr;</a>
+  <a href="https://go.hotmart.com/F105964457X" target="_blank">QUERO &rarr;</a>
 </div>
 
 <!-- TOAST NOTIFICACAO -->
@@ -309,7 +308,6 @@
 </div>
 
 <script>
-  // Countdown 12h por visitante
   function getExpiry() {
     var expiry = localStorage.getItem('cd_expiry');
     if (!expiry) { expiry = Date.now() + 12*60*60*1000; localStorage.setItem('cd_expiry', expiry); }
@@ -327,13 +325,11 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // Sticky bar
   var sticky = document.getElementById('sticky');
   window.addEventListener('scroll', function() {
     sticky.classList.toggle('visible', window.scrollY > 400);
   });
 
-  // Contador online
   var online = Math.floor(Math.random()*18)+23;
   document.getElementById('online-count').textContent = online;
   setInterval(function() {
@@ -342,7 +338,6 @@
     document.getElementById('online-count').textContent = online;
   }, 7000);
 
-  // Toast de compra
   var nomes = [
     ['Vanessa','&#128722;'],['Bruno','&#9989;'],['Fernanda','&#128722;'],
     ['Carlos','&#9989;'],['Juliana','&#128722;'],['Rafael','&#9989;'],
