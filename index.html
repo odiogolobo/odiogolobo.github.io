@@ -4,881 +4,1090 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Método Indicação Ativa — Diogo Lobo</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<title>Diogo Lobo — Dobrar o Faturamento em 90 Dias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --red: #e63946;
-    --green: #00ff88;
-    --dark: #0a0a0a;
-    --dark2: #111111;
-    --dark3: #1a1a1a;
-    --white: #ffffff;
-    --gray: #888888;
-    --light: #f5f5f5;
+    --gold: #C9A84C;
+    --gold-light: #E2C97E;
+    --gold-dark: #9A7A2E;
+    --black: #080808;
+    --black-soft: #111111;
+    --black-card: #161616;
+    --white: #F5F0E8;
+    --white-dim: #B0A898;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Inter', sans-serif;
-    background: var(--dark);
+    background: var(--black);
     color: var(--white);
-    line-height: 1.6;
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
     overflow-x: hidden;
   }
 
-  /* TOP BAR */
-  .topbar {
-    background: var(--red);
-    text-align: center;
-    padding: 12px 20px;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
   }
-  .topbar s { opacity: 0.7; }
 
-  /* HERO */
-  .hero {
-    padding: 60px 20px 50px;
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  .hero-badge {
-    display: inline-block;
-    background: rgba(0,255,136,0.1);
-    border: 1px solid var(--green);
-    color: var(--green);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    padding: 6px 16px;
-    border-radius: 2px;
-    margin-bottom: 28px;
-  }
-  .hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(48px, 10vw, 80px);
-    line-height: 1;
-    margin-bottom: 24px;
-    letter-spacing: 1px;
-  }
-  .hero h1 span { color: var(--green); }
-  .hero p {
-    font-size: 18px;
-    color: #cccccc;
-    margin-bottom: 36px;
-    max-width: 540px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .stats-row {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-  }
-  .stat { text-align: center; }
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 36px;
-    color: var(--green);
-    line-height: 1;
-  }
-  .stat-label { font-size: 12px; color: var(--gray); letter-spacing: 1px; }
-
-  /* BUTTONS */
-  .btn-main {
-    display: inline-block;
-    background: var(--red);
-    color: white;
-    font-weight: 800;
-    font-size: 16px;
-    padding: 18px 40px;
-    text-decoration: none;
-    border-radius: 4px;
-    letter-spacing: 0.5px;
-    animation: pulse 2s infinite;
+  /* ── GOLD LINE TOP ── */
+  .gold-bar {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
     width: 100%;
-    max-width: 420px;
-    text-align: center;
-  }
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(230,57,70,0.5); }
-    50% { box-shadow: 0 0 0 12px rgba(230,57,70,0); }
-  }
-  .btn-sub {
-    display: block;
-    font-size: 12px;
-    color: var(--gray);
-    margin-top: 10px;
-    text-align: center;
   }
 
-  /* SECTIONS */
-  section { padding: 60px 20px; }
-  .container { max-width: 700px; margin: 0 auto; }
-  .section-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-  h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(36px, 7vw, 56px);
-    line-height: 1.05;
-    margin-bottom: 24px;
-    letter-spacing: 0.5px;
-  }
-  h2 span { color: var(--green); }
-
-  /* DOR SUPERFICIAL */
-  .pain-surface {
-    background: var(--dark2);
-    border-left: 3px solid var(--red);
-  }
-  .pain-list { list-style: none; margin: 24px 0; }
-  .pain-list li {
-    padding: 14px 0;
-    border-bottom: 1px solid #222;
-    font-size: 16px;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .pain-list li:last-child { border-bottom: none; }
-  .pain-list .icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
-
-  /* DOR OCULTA — NOVA SEÇÃO */
-  .hidden-pain {
-    background: #0d0d0d;
-    border-top: 1px solid #1a1a1a;
-    border-bottom: 1px solid #1a1a1a;
-  }
-  .hidden-pain-intro {
-    background: rgba(230,57,70,0.08);
-    border: 1px solid rgba(230,57,70,0.3);
-    border-radius: 4px;
-    padding: 20px 24px;
-    margin-bottom: 36px;
-    font-size: 15px;
-    color: #cccccc;
-    line-height: 1.7;
-  }
-  .hidden-pain-intro strong { color: var(--white); }
-  .fear-grid { display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
-  .fear-card {
-    background: var(--dark3);
-    border: 1px solid #2a2a2a;
-    border-radius: 4px;
-    padding: 20px 22px;
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px;
     position: relative;
-    overflow: hidden;
+    z-index: 1;
   }
-  .fear-card::before {
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 48px auto;
+    opacity: 0.6;
+  }
+
+  .divider-full {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+    margin: 64px 0;
+    opacity: 0.4;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px 0 80px;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero::before {
     content: '';
     position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--red);
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 70%);
+    pointer-events: none;
   }
-  .fear-number {
+
+  .hero-eyebrow {
+    font-family: var(--sans);
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--red);
-    margin-bottom: 8px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
   }
-  .fear-title {
-    font-size: 17px;
+
+  .hero-headline {
+    font-family: var(--serif);
+    font-size: clamp(38px, 6vw, 68px);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--white-dim);
+    max-width: 560px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-sub strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* ── CTA BUTTON ── */
+  .btn-gold {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold));
+    background-size: 300% 300%;
+    color: var(--black);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 18px 48px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    animation: gradientShift 4s ease infinite, fadeUp 0.8s ease forwards 0.8s;
+    opacity: 0;
+    position: relative;
+  }
+
+  .btn-gold::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold-light));
+    z-index: -1;
+    filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .btn-gold:hover::after { opacity: 0.6; }
+  .btn-gold:hover { transform: translateY(-2px); letter-spacing: 3px; }
+
+  .btn-price {
+    display: block;
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--white-dim);
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s;
+  }
+
+  .btn-price s { opacity: 0.5; }
+  .btn-price strong { color: var(--gold); }
+
+  /* ── SECTION LABELS ── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+
+  /* ── PAIN SECTION ── */
+  .pain {
+    padding: 80px 0;
+  }
+
+  .pain-intro {
+    font-family: var(--serif);
+    font-size: clamp(22px, 3vw, 32px);
     font-weight: 700;
-    margin-bottom: 8px;
+    line-height: 1.4;
+    margin-bottom: 48px;
     color: var(--white);
   }
-  .fear-thought {
-    font-size: 14px;
-    color: #888;
-    font-style: italic;
-    border-left: 2px solid #333;
-    padding-left: 12px;
-    margin-top: 10px;
-  }
-  .hidden-pain-close {
-    background: rgba(230,57,70,0.1);
-    border: 1px solid rgba(230,57,70,0.4);
-    border-radius: 4px;
-    padding: 24px;
-    text-align: center;
-  }
-  .hidden-pain-close p {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-  .hidden-pain-close span { color: var(--green); font-size: 15px; }
 
-  /* HISTÓRIA */
-  .story { background: var(--dark2); }
-  .story-quote {
-    background: var(--dark3);
-    border-left: 3px solid var(--green);
-    padding: 24px;
-    margin: 24px 0;
-    font-size: 16px;
-    font-style: italic;
-    color: #cccccc;
-    line-height: 1.8;
-    border-radius: 0 4px 4px 0;
-  }
+  .pain-intro em { color: var(--gold-light); font-style: italic; }
 
-  /* RESULTADOS */
-  .results-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 28px 0;
-  }
-  .result-card {
-    background: var(--dark3);
-    border: 1px solid #2a2a2a;
-    border-radius: 4px;
-    padding: 20px;
-    text-align: center;
-  }
-  .result-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 40px;
-    color: var(--green);
-    line-height: 1;
-  }
-  .result-desc { font-size: 13px; color: var(--gray); margin-top: 4px; }
-  .result-who { font-size: 12px; color: #555; margin-top: 6px; }
-
-  /* COMPARAÇÃO */
-  .compare { background: var(--dark2); }
-  .compare-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 28px;
-  }
-  .compare-col { border-radius: 4px; padding: 24px; }
-  .compare-col.bad { background: rgba(230,57,70,0.08); border: 1px solid rgba(230,57,70,0.25); }
-  .compare-col.good { background: rgba(0,255,136,0.06); border: 1px solid rgba(0,255,136,0.25); }
-  .compare-title {
-    font-weight: 800;
-    font-size: 13px;
-    letter-spacing: 1px;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-  }
-  .compare-col.bad .compare-title { color: var(--red); }
-  .compare-col.good .compare-title { color: var(--green); }
-  .compare-item {
-    font-size: 14px;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+  .pain-list {
+    list-style: none;
     display: flex;
-    align-items: flex-start;
-    gap: 8px;
+    flex-direction: column;
+    gap: 0;
   }
-  .compare-item:last-child { border-bottom: none; }
 
-  /* PRODUTO */
-  .product { background: var(--dark); }
-  .product-box {
-    background: var(--dark3);
-    border: 1px solid #2a2a2a;
-    border-radius: 6px;
-    padding: 32px;
-    margin: 28px 0;
-  }
-  .product-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    color: var(--green);
-    margin-bottom: 24px;
-    letter-spacing: 1px;
-  }
-  .product-list { list-style: none; }
-  .product-list li {
-    padding: 12px 0;
-    border-bottom: 1px solid #222;
-    font-size: 15px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .product-list li:last-child { border-bottom: none; }
-  .check { color: var(--green); font-weight: 700; flex-shrink: 0; }
-
-  /* BÔNUS */
-  .bonus { background: var(--dark2); }
-  .bonus-list { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
-  .bonus-card {
-    background: var(--dark3);
-    border: 1px solid #2a2a2a;
-    border-radius: 4px;
-    padding: 20px 22px;
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-  }
-  .bonus-num {
-    background: var(--green);
-    color: var(--dark);
-    font-weight: 900;
-    font-size: 14px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .bonus-info h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .bonus-info p { font-size: 13px; color: var(--gray); }
-  .bonus-price {
-    margin-top: 6px;
-    font-size: 12px;
-    color: var(--red);
-    font-weight: 700;
-  }
-  .bonus-price s { color: var(--gray); }
-
-  /* PARA QUEM */
-  .forwho { background: var(--dark); }
-  .forwho-list { list-style: none; margin-top: 24px; }
-  .forwho-list li {
-    padding: 12px 0;
-    border-bottom: 1px solid #1a1a1a;
-    font-size: 15px;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-  .forwho-list li:last-child { border-bottom: none; }
-
-  /* AUTOR */
-  .author { background: var(--dark2); }
-  .author-card {
-    background: var(--dark3);
-    border: 1px solid #2a2a2a;
-    border-radius: 6px;
-    padding: 28px;
+  .pain-item {
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
     display: flex;
     gap: 20px;
     align-items: flex-start;
-    margin-top: 24px;
+    transition: all 0.3s;
   }
-  .author-avatar {
-    width: 64px;
-    height: 64px;
-    background: var(--green);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 24px;
-    color: var(--dark);
+
+  .pain-item:hover { padding-left: 8px; }
+
+  .pain-dash {
+    color: var(--gold);
+    font-family: var(--serif);
+    font-size: 20px;
+    margin-top: 2px;
     flex-shrink: 0;
   }
-  .author-name { font-weight: 800; font-size: 18px; }
-  .author-role { color: var(--green); font-size: 13px; margin-bottom: 10px; }
-  .author-bio { font-size: 14px; color: #aaa; line-height: 1.7; }
 
-  /* OFERTA */
-  .offer { background: var(--dark); text-align: center; }
-  .price-old {
-    font-size: 18px;
-    color: var(--gray);
-    text-decoration: line-through;
-    margin-bottom: 4px;
+  .pain-text {
+    font-size: 16px;
+    color: var(--white-dim);
+    line-height: 1.6;
   }
-  .price-new {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 72px;
-    color: var(--green);
+
+  .pain-text strong { color: var(--white); font-weight: 500; }
+
+  /* ── ENEMY SECTION ── */
+  .enemy {
+    padding: 80px 0;
+    background: var(--black-soft);
+    margin: 0 -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .enemy-quote {
+    font-family: var(--serif);
+    font-size: clamp(20px, 2.8vw, 28px);
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--gold-light);
+    border-left: 3px solid var(--gold);
+    padding-left: 28px;
+    margin-bottom: 32px;
+  }
+
+  .enemy-body {
+    font-size: 16px;
+    color: var(--white-dim);
+    line-height: 1.8;
+    max-width: 640px;
+  }
+
+  .enemy-body strong { color: var(--white); font-weight: 500; }
+
+  /* ── STORY ── */
+  .story { padding: 80px 0; }
+
+  .story-headline {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.5vw, 38px);
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 40px;
+  }
+
+  .story-headline em { color: var(--gold-light); font-style: italic; }
+
+  .story-body {
+    font-size: 16px;
+    color: var(--white-dim);
+    line-height: 1.9;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .story-body strong { color: var(--white); font-weight: 500; }
+
+  .story-milestone {
+    background: var(--black-card);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+    margin: 8px 0;
+  }
+
+  .story-milestone-date {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .story-milestone-text {
+    font-size: 16px;
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* ── METHOD ── */
+  .method { padding: 80px 0; }
+
+  .method-headline {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.5vw, 38px);
+    font-weight: 900;
+    margin-bottom: 16px;
+  }
+
+  .method-headline em { color: var(--gold-light); font-style: italic; }
+
+  .method-sub {
+    font-size: 16px;
+    color: var(--white-dim);
+    margin-bottom: 48px;
+    line-height: 1.7;
+  }
+
+  .method-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  @media (max-width: 600px) {
+    .method-grid { grid-template-columns: 1fr; }
+  }
+
+  .method-card {
+    background: var(--black-card);
+    padding: 28px 24px;
+    border: 1px solid rgba(201,168,76,0.1);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .method-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .method-card:hover::before { transform: scaleX(1); }
+  .method-card:hover { border-color: rgba(201,168,76,0.3); }
+
+  .method-number {
+    font-family: var(--serif);
+    font-size: 42px;
+    font-weight: 900;
+    color: rgba(201,168,76,0.15);
     line-height: 1;
-    margin-bottom: 4px;
+    margin-bottom: 12px;
   }
-  .price-installment { font-size: 14px; color: var(--gray); margin-bottom: 28px; }
-  .guarantee {
-    display: inline-flex;
+
+  .method-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--gold-light);
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .method-desc {
+    font-size: 14px;
+    color: var(--white-dim);
+    line-height: 1.7;
+  }
+
+  /* ── PROOF ── */
+  .proof {
+    padding: 80px 0;
+    background: var(--black-soft);
+    margin: 0 -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .proof-headline {
+    font-family: var(--serif);
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 900;
+    margin-bottom: 48px;
+  }
+
+  .proof-headline em { color: var(--gold-light); font-style: italic; }
+
+  .proof-card {
+    background: var(--black-card);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 32px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .proof-card::before {
+    content: '"';
+    font-family: var(--serif);
+    font-size: 80px;
+    color: var(--gold);
+    opacity: 0.15;
+    position: absolute;
+    top: 12px; left: 24px;
+    line-height: 1;
+  }
+
+  .proof-text {
+    font-size: 16px;
+    color: var(--white);
+    line-height: 1.8;
+    margin-bottom: 20px;
+    padding-top: 16px;
+  }
+
+  .proof-author {
+    display: flex;
     align-items: center;
-    gap: 10px;
-    background: var(--dark3);
-    border: 1px solid #2a2a2a;
-    border-radius: 4px;
-    padding: 14px 20px;
+    gap: 16px;
+  }
+
+  .proof-initial {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--black);
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .proof-name { font-size: 14px; font-weight: 500; color: var(--white); }
+  .proof-role { font-size: 12px; color: var(--white-dim); letter-spacing: 0.5px; }
+
+  .proof-result {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(201,168,76,0.15);
     font-size: 13px;
-    color: var(--gray);
-    margin-top: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
   }
 
-  /* FAQ */
-  .faq { background: var(--dark2); }
-  .faq-list { margin-top: 28px; }
-  .faq-item {
-    border-bottom: 1px solid #222;
-    padding: 20px 0;
-  }
-  .faq-q { font-weight: 700; font-size: 15px; margin-bottom: 10px; cursor: pointer; }
-  .faq-a { font-size: 14px; color: #aaa; line-height: 1.7; }
+  /* ── OFFER ── */
+  .offer { padding: 80px 0; }
 
-  /* FECHAMENTO */
-  .close-section {
-    background: var(--dark);
+  .offer-box {
+    border: 1px solid rgba(201,168,76,0.3);
+    background: var(--black-card);
+    padding: 48px 40px;
+    position: relative;
     text-align: center;
-    padding: 60px 20px;
   }
-  .close-section p {
-    font-size: 17px;
-    color: #aaa;
+
+  @media (max-width: 600px) { .offer-box { padding: 36px 24px; } }
+
+  .offer-box::before, .offer-box::after {
+    content: '';
+    position: absolute;
+    width: 20px; height: 20px;
+    border-color: var(--gold);
+    border-style: solid;
+  }
+
+  .offer-box::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+  .offer-box::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+  .offer-title {
+    font-family: var(--serif);
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+
+  .offer-title em { color: var(--gold-light); font-style: italic; }
+
+  .offer-desc {
+    font-size: 15px;
+    color: var(--white-dim);
+    margin-bottom: 36px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+
+  .offer-items {
+    list-style: none;
+    text-align: left;
+    max-width: 480px;
+    margin: 0 auto 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .offer-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 15px;
+    color: var(--white-dim);
+  }
+
+  .offer-check {
+    color: var(--gold);
+    font-size: 14px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .offer-price-block { margin-bottom: 32px; }
+
+  .offer-original {
+    font-size: 14px;
+    color: var(--white-dim);
+    text-decoration: line-through;
+    opacity: 0.5;
+    letter-spacing: 1px;
+  }
+
+  .offer-price {
+    font-family: var(--serif);
+    font-size: clamp(44px, 7vw, 72px);
+    font-weight: 900;
+    color: var(--gold-light);
+    line-height: 1;
+    margin: 8px 0 4px;
+  }
+
+  .offer-price sup {
+    font-size: 0.4em;
+    vertical-align: top;
+    margin-top: 10px;
+    display: inline-block;
+  }
+
+  .offer-price-note {
+    font-size: 13px;
+    color: var(--white-dim);
+    letter-spacing: 1px;
+  }
+
+  /* ── PROMISE ── */
+  .promise {
+    padding: 80px 0;
+    text-align: center;
+  }
+
+  .promise-headline {
+    font-family: var(--serif);
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 900;
+    margin-bottom: 24px;
+  }
+
+  .promise-headline em { color: var(--gold-light); font-style: italic; }
+
+  .promise-body {
+    font-size: 16px;
+    color: var(--white-dim);
     max-width: 540px;
-    margin: 0 auto 32px;
+    margin: 0 auto;
     line-height: 1.8;
   }
-  .close-section strong { color: var(--white); }
 
-  /* FOOTER */
-  footer {
-    background: var(--dark2);
-    text-align: center;
-    padding: 32px 20px;
-    font-size: 13px;
-    color: var(--gray);
-    border-top: 1px solid #1a1a1a;
+  /* ── FAQ ── */
+  .faq { padding: 80px 0; }
+
+  .faq-headline {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.8vw, 30px);
+    font-weight: 900;
+    margin-bottom: 40px;
   }
-  footer a { color: var(--gray); text-decoration: none; }
 
-  /* FLOATING CTA */
-  .floating {
+  .faq-item {
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    padding: 24px 0;
+  }
+
+  .faq-q {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .faq-a {
+    font-size: 15px;
+    color: var(--white-dim);
+    line-height: 1.8;
+  }
+
+  .faq-a strong { color: var(--white); font-weight: 500; }
+
+  /* ── FINAL CTA ── */
+  .final-cta {
+    padding: 100px 0;
+    text-align: center;
+    position: relative;
+  }
+
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .final-headline {
+    font-family: var(--serif);
+    font-size: clamp(30px, 5vw, 54px);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .final-headline em { color: var(--gold-light); font-style: italic; }
+
+  .final-sub {
+    font-size: 16px;
+    color: var(--white-dim);
+    margin-bottom: 48px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid rgba(201,168,76,0.12);
+    padding: 40px 0;
+    text-align: center;
+  }
+
+  .footer-name {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .footer-bordao {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--white-dim);
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  .footer-links {
+    font-size: 13px;
+    color: var(--white-dim);
+    opacity: 0.5;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── STICKY CTA BAR (mobile) ── */
+  .sticky-cta {
+    display: none;
     position: fixed;
     bottom: 0; left: 0; right: 0;
-    background: var(--dark2);
-    border-top: 1px solid #222;
-    padding: 12px 20px;
-    display: flex;
+    background: var(--black-card);
+    border-top: 1px solid rgba(201,168,76,0.3);
+    padding: 12px 16px;
+    z-index: 100;
     align-items: center;
     justify-content: space-between;
-    z-index: 99;
     gap: 12px;
   }
-  .floating-price { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--green); }
-  .floating-label { font-size: 11px; color: var(--gray); }
-  .floating a {
-    background: var(--red);
-    color: white;
-    font-weight: 800;
-    font-size: 14px;
-    padding: 12px 24px;
+
+  @media (max-width: 600px) { .sticky-cta { display: flex; } }
+
+  .sticky-cta-text { font-size: 13px; color: var(--white-dim); }
+  .sticky-cta-text strong { color: var(--gold); display: block; font-size: 14px; }
+
+  .btn-sticky {
+    background: var(--gold);
+    color: var(--black);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
     text-decoration: none;
-    border-radius: 4px;
+    padding: 12px 20px;
     white-space: nowrap;
     flex-shrink: 0;
-  }
-
-  /* NOTIFICATION */
-  .notif {
-    position: fixed;
-    bottom: 80px;
-    left: 16px;
-    background: var(--dark3);
-    border: 1px solid #333;
-    border-left: 3px solid var(--red);
-    border-radius: 4px;
-    padding: 12px 16px;
-    font-size: 13px;
-    max-width: 260px;
-    z-index: 98;
-    animation: slideIn 0.4s ease;
-    display: none;
-  }
-  .notif strong { display: block; font-size: 12px; color: var(--green); margin-bottom: 2px; }
-  .notif span { color: var(--gray); font-size: 11px; }
-  @keyframes slideIn {
-    from { transform: translateX(-100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-  }
-
-  @media (max-width: 480px) {
-    .results-grid { grid-template-columns: 1fr 1fr; }
-    .compare-grid { grid-template-columns: 1fr 1fr; }
-    .author-card { flex-direction: column; }
-    .stats-row { gap: 24px; }
   }
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  ⚡ OFERTA ESPECIAL — APENAS R$57 — ACESSO IMEDIATO ⚡ &nbsp;|&nbsp; <s>R$327</s> hoje por R$57
-</div>
+<div class="gold-bar"></div>
 
 <!-- HERO -->
-<section class="hero" style="padding-bottom: 50px;">
-  <div class="hero-badge">MÉTODO COMPROVADO • R$4,5 MILHÕES FATURADOS</div>
-  <h1>Pare de <span>Perder Dinheiro</span> Todo Dia</h1>
-  <p>O método que usei para faturar <strong>R$4,5 milhões</strong> ativando os clientes que eu já tinha — sem anúncio, sem tráfego pago, sem influencer.</p>
-  <div class="stats-row">
-    <div class="stat"><div class="stat-num">R$4,5M</div><div class="stat-label">Faturados com o método</div></div>
-    <div class="stat"><div class="stat-num">R$0</div><div class="stat-label">Gasto com anúncio</div></div>
-    <div class="stat"><div class="stat-num">R$57</div><div class="stat-label">Acesso completo</div></div>
+<section class="hero">
+  <div class="container">
+    <p class="hero-eyebrow">Estratégia Comercial — ARKHE</p>
+    <h1 class="hero-headline">
+      Dobrar o faturamento<br>em <em>90 dias</em><br>usando o que você já tem.
+    </h1>
+    <p class="hero-sub">
+      Não é anúncio. Não é sorte. Não é método de guru.<br>
+      É estratégia moldada para <strong>o seu negócio</strong> — não para o do guru.
+    </p>
+    <a href="https://go.hotmart.com/F105964457X" class="btn-gold" target="_blank">
+      Quero o Método — R$57
+    </a>
+    <span class="btn-price"><s>De R$327</s> &nbsp;→&nbsp; <strong>R$57</strong> — acesso imediato</span>
   </div>
-  <a href="https://go.hotmart.com/F105964457X" class="btn-main">QUERO O MÉTODO AGORA →</a>
-  <span class="btn-sub">🛡️ Garantia de 7 dias • Acesso imediato • PDF para download</span>
 </section>
 
-<!-- DOR SUPERFICIAL -->
-<section class="pain-surface">
+<!-- PAIN -->
+<section class="pain">
   <div class="container">
-    <div class="section-label">Você se identifica?</div>
-    <h2>Você Trabalha Muito e <span>Fatura Pouco</span></h2>
-    <p style="color:#aaa; margin-bottom: 8px;">Todo empresário já sentiu isso. Você faz tudo certo — atende bem, entrega com qualidade — mas no final do mês o dinheiro some.</p>
+    <p class="section-label reveal">O que você está vivendo</p>
+    <p class="pain-intro reveal">
+      Se você fatura entre R$25k e R$150k por mês e ainda sente que<br>
+      <em>o crescimento trava antes de chegar onde deveria</em> —<br>
+      você está no lugar certo.
+    </p>
     <ul class="pain-list">
-      <li><span class="icon">😰</span> Acorda todo dia pensando em como trazer clientes novos</li>
-      <li><span class="icon">💸</span> Gasta com tráfego pago e para de aparecer quando para de pagar</li>
-      <li><span class="icon">📱</span> Tem centenas de contatos de clientes parados no celular sem usar</li>
-      <li><span class="icon">😔</span> Clientes antigos somem e você não sabe por quê</li>
-      <li><span class="icon">🔄</span> Depende de cliente novo pra pagar as contas todo mês</li>
+      <li class="pain-item reveal">
+        <span class="pain-dash">—</span>
+        <p class="pain-text"><strong>"Trabalho mais que todo mundo que conheço e ganho menos que a maioria."</strong></p>
+      </li>
+      <li class="pain-item reveal">
+        <span class="pain-dash">—</span>
+        <p class="pain-text"><strong>"Já tentei de tudo. Talvez o problema seja eu."</strong></p>
+      </li>
+      <li class="pain-item reveal">
+        <span class="pain-dash">—</span>
+        <p class="pain-text"><strong>"Tenho vergonha de falar quanto fatura."</strong> O negócio não reflete o esforço que coloco.</p>
+      </li>
+      <li class="pain-item reveal">
+        <span class="pain-dash">—</span>
+        <p class="pain-text"><strong>"Carrego tudo nas costas."</strong> Se eu parar um dia, o negócio para junto.</p>
+      </li>
+      <li class="pain-item reveal">
+        <span class="pain-dash">—</span>
+        <p class="pain-text"><strong>"Queria dar uma vida melhor para quem amo."</strong> Ainda não cheguei lá do jeito que queria.</p>
+      </li>
     </ul>
-    <p style="font-weight: 700; font-size: 16px; margin-top: 8px;">Isso não é falta de produto bom. <span style="color:var(--green)">É falta de método.</span></p>
   </div>
 </section>
 
-<!-- DOR OCULTA — NOVA SEÇÃO -->
-<section class="hidden-pain">
+<div class="divider-full container"></div>
+
+<!-- ENEMY -->
+<section class="enemy">
   <div class="container">
-    <div class="section-label">A dor que ninguém fala</div>
-    <h2>O Medo que Você <span>Nunca Admite</span> em Voz Alta</h2>
-
-    <div class="hidden-pain-intro">
-      Todo mundo fala de <strong>"medo de não vender"</strong> ou <strong>"medo de falir"</strong>.<br><br>
-      Mas existe um medo mais profundo. Um que você sente às 2 da manhã quando não consegue dormir. Um que você nunca coloca em palavras. Um que dói de verdade.
-    </div>
-
-    <div class="fear-grid">
-
-      <div class="fear-card">
-        <div class="fear-number">MEDO 01</div>
-        <div class="fear-title">Você faz tudo certo — e mesmo assim não cresce</div>
-        <p style="font-size:14px; color:#aaa; margin-top:6px;">Você atende bem. Entrega bem. É melhor que o concorrente. E mesmo assim ele tem mais cliente que você. Isso não é azar. Isso corrói por dentro.</p>
-        <div class="fear-thought">"O problema deve ser eu. Talvez eu não sirva para isso."</div>
-      </div>
-
-      <div class="fear-card">
-        <div class="fear-number">MEDO 02</div>
-        <div class="fear-title">Todo mundo ao seu redor está crescendo — menos você</div>
-        <p style="font-size:14px; color:#aaa; margin-top:6px;">Você abre o Instagram e vê concorrente comemorando resultado. Vê amigo expandindo o negócio. E você está no mesmo lugar há meses. A sensação de estar ficando para trás é sufocante.</p>
-        <div class="fear-thought">"Já perdi o timing. Quem começou antes já ganhou o mercado."</div>
-      </div>
-
-      <div class="fear-card">
-        <div class="fear-number">MEDO 03</div>
-        <div class="fear-title">Seu cliente adorou o serviço — e não te indicou para ninguém</div>
-        <p style="font-size:14px; color:#aaa; margin-top:6px;">Ele saiu feliz. Te elogiou na sua cara. Mas nunca mandou ninguém. Você nunca entendeu por quê. E isso te incomoda mais do que você admite.</p>
-        <div class="fear-thought">"Será que meu trabalho não é bom o suficiente para as pessoas colocarem o nome delas em jogo por mim?"</div>
-      </div>
-
-      <div class="fear-card">
-        <div class="fear-number">MEDO 04</div>
-        <div class="fear-title">Você tem vergonha de pedir indicação</div>
-        <p style="font-size:14px; color:#aaa; margin-top:6px;">Você pensa em pedir. Mas trava. Parece desesperado. Parece que está pedindo favor. Aí fica esperando o cliente lembrar de você por conta própria. Ele não vai lembrar.</p>
-        <div class="fear-thought">"Não quero parecer que estou precisando. Vou esperar o momento certo." — O momento nunca vem.</div>
-      </div>
-
-      <div class="fear-card">
-        <div class="fear-number">MEDO 05</div>
-        <div class="fear-title">Você acha que vai ter que virar escravo das redes sociais</div>
-        <p style="font-size:14px; color:#aaa; margin-top:6px;">Para crescer precisa aparecer todo dia. Gravar vídeo. Fazer stories. Ficar dependendo do algoritmo. Só de pensar já cansa. Aí não faz nada. E continua no mesmo lugar.</p>
-        <div class="fear-thought">"Não tenho tempo nem jeito para isso. Talvez não seja para mim."</div>
-      </div>
-
-      <div class="fear-card">
-        <div class="fear-number">MEDO 06</div>
-        <div class="fear-title">Você já pensou em desistir — e sentiu vergonha disso</div>
-        <p style="font-size:14px; color:#aaa; margin-top:6px;">Não por preguiça. Por falta de resultado. Você se esforça, faz tudo certo, investe tempo e dinheiro. E nada muda. A vontade de largar tudo aparece. E você sente vergonha só de ter pensado nisso.</p>
-        <div class="fear-thought">"Talvez meu negócio nunca escale de verdade. Talvez não seja para mim."</div>
-      </div>
-
-    </div>
-
-    <div class="hidden-pain-close">
-      <p>Se você se identificou com algum desses medos — <strong style="color:var(--red)">você não está sozinho.</strong></p>
-      <span>E esses medos têm uma causa em comum: <strong style="color:var(--white)">falta de um método de indicação ativa.</strong></span>
-      <br><br>
-      <p style="font-size:16px; color:var(--green); font-weight:700;">O remédio existe. E está na bio.</p>
-    </div>
+    <p class="section-label reveal">Por que nada funcionou até aqui</p>
+    <blockquote class="enemy-quote reveal">
+      "O guru que nunca sangrou ensinando quem está sangrando."
+    </blockquote>
+    <p class="enemy-body reveal">
+      O problema não é você. É o método que te venderam.<br><br>
+      Método universal é mentira. <strong>Negócio é gente. Gente é diferente.</strong>
+      O que funcionou na empresa do guru precisou ser moldado para ela —
+      não pode ser copiado e colado no seu negócio, que tem outra história,
+      outro mercado, outro momento.<br><br>
+      Você não falhou. O método que te venderam falhou.
+      São coisas completamente diferentes.
+    </p>
   </div>
 </section>
 
-<!-- HISTÓRIA -->
+<div class="divider-full container"></div>
+
+<!-- STORY -->
 <section class="story">
   <div class="container">
-    <div class="section-label">Minha história</div>
-    <h2>Eu Já Estive Exatamente <span>Onde Você Está</span></h2>
-    <div class="story-quote">
-      "Me lembro do dia que quase fechei minha clínica. Contas acumulando. Clientes sumindo. Sem saber o que fazer. Olhava para a agenda vazia e pensava: será que não sirvo para isso?<br><br>
-      Foi quando percebi que eu tinha uma base inteira de clientes que nunca reativei. Pessoas que gostaram do meu serviço, sumiram, e eu nunca fui atrás. Aquele dia mudou tudo."
-    </div>
-    <p style="color:#aaa; font-size:15px; line-height:1.8;">Comecei do zero. Montei uma clínica. Depois uma casa de festas. Fui descobrindo na prática como fazer <strong style="color:white">clientes trazerem mais clientes</strong> — sem anúncio, sem tráfego pago, sem influencer.</p>
-    <p style="margin-top:16px; font-size:16px; font-weight:700;">Resultado: <span style="color:var(--green)">R$4,5 milhões faturados</span> — só com o método que desenvolvi.</p>
-  </div>
-</section>
+    <p class="section-label reveal">A história por trás do método</p>
+    <h2 class="story-headline reveal">
+      Eu aprendi com agiota no telefone,<br>com paralisia no rosto e com<br>
+      <em>R$600.000 faturados em 3 meses.</em>
+    </h2>
+    <div class="story-body">
+      <p class="reveal">
+        Em maio de 2023 comprei uma clínica sem dinheiro.
+        Com fé. Com a ajuda de pessoas ao redor.
+        No primeiro mês: <strong>R$27.000</strong>.
+        O dono anterior nunca havia passado de R$20.000.
+      </p>
 
-<!-- RESULTADOS -->
-<section style="background:var(--dark); padding: 60px 20px;">
-  <div class="container">
-    <div class="section-label">Resultados reais</div>
-    <h2>O Método Funciona para <span>Qualquer Negócio</span></h2>
-    <div class="results-grid">
-      <div class="result-card">
-        <div class="result-num">3x</div>
-        <div class="result-desc">Faturamento triplicado em 60 dias</div>
-        <div class="result-who">Doceira</div>
+      <div class="story-milestone reveal">
+        <p class="story-milestone-date">Outubro / 2023</p>
+        <p class="story-milestone-text">R$100.000 pela primeira vez. E paralisia facial de tanto trabalhar.</p>
       </div>
-      <div class="result-card">
-        <div class="result-num">R$40k</div>
-        <div class="result-desc">De R$6k para R$40k em 2 meses</div>
-        <div class="result-who">Empresária</div>
-      </div>
-      <div class="result-card">
-        <div class="result-num">100%</div>
-        <div class="result-desc">Agenda lotada sem gastar com anúncio</div>
-        <div class="result-who">Dentista</div>
-      </div>
-      <div class="result-card">
-        <div class="result-num">2x</div>
-        <div class="result-desc">Dobrou alunos só com indicação</div>
-        <div class="result-who">Personal Trainer</div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- COMPARAÇÃO -->
-<section class="compare">
-  <div class="container">
-    <div class="section-label">A diferença</div>
-    <h2>Tráfego Pago é Aluguel. <span>Indicação é Patrimônio.</span></h2>
-    <div class="compare-grid">
-      <div class="compare-col bad">
-        <div class="compare-title">❌ Sem o método</div>
-        <div class="compare-item">💸 Gasta todo mês com anúncio</div>
-        <div class="compare-item">📉 Para de pagar, para de aparecer</div>
-        <div class="compare-item">😰 Cliente novo custa caro</div>
-        <div class="compare-item">😓 Ansiedade financeira constante</div>
-        <div class="compare-item">📱 Depende do algoritmo</div>
+      <p class="reveal">
+        Foi ali que entendi: crescimento sem sistema destrói quem cresce.
+        <strong>Eu estava faturando mais e perdendo mais ao mesmo tempo.</strong>
+        Nenhum guru te conta a segunda parte. Eu conto. Porque é isso que salva.
+      </p>
+
+      <div class="story-milestone reveal">
+        <p class="story-milestone-date">Set / Out / Nov — 2024</p>
+        <p class="story-milestone-text">R$600.000 em 3 meses. Só eu, a Amanda e uma secretária.</p>
       </div>
-      <div class="compare-col good">
-        <div class="compare-title">✅ Com o método</div>
-        <div class="compare-item">🎯 Custo de aquisição zero</div>
-        <div class="compare-item">📈 Clientes chegam por indicação</div>
-        <div class="compare-item">🔄 Base ativa trabalhando por você</div>
-        <div class="compare-item">💰 Previsibilidade financeira</div>
-        <div class="compare-item">🚀 Independente de plataforma</div>
-      </div>
+
+      <p class="reveal">
+        O que me tirou de lá foi um método — não motivação.
+        Um conjunto de estratégias moldadas para o meu negócio específico.
+        Que depois moldei para cada cliente que atendo.
+        <strong>É isso que está neste material.</strong>
+      </p>
     </div>
   </div>
 </section>
 
-<!-- PRODUTO -->
-<section class="product">
+<div class="divider-full container"></div>
+
+<!-- METHOD -->
+<section class="method">
   <div class="container">
-    <div class="section-label">O produto</div>
-    <h2>O que está <span>no Ebook</span></h2>
-    <div class="product-box">
-      <div class="product-title">MÉTODO INDICAÇÃO ATIVA — Diogo Lobo</div>
-      <ul class="product-list">
-        <li><span class="check">✓</span> Como reativar clientes que sumiram em 24h</li>
-        <li><span class="check">✓</span> O script exato para pedir indicações sem parecer chato</li>
-        <li><span class="check">✓</span> Como transformar um cliente satisfeito em vendedor da sua marca</li>
-        <li><span class="check">✓</span> O sistema de follow-up que usei na clínica e na casa de festas</li>
-        <li><span class="check">✓</span> Como criar previsibilidade de faturamento sem depender de anúncio</li>
-        <li><span class="check">✓</span> Os 3 tipos de cliente que mais indicam e como identificá-los</li>
-        <li><span class="check">✓</span> Passo a passo para aplicar em qualquer negócio com clientes</li>
-      </ul>
-    </div>
-    <div style="text-align:center; margin-top: 8px;">
-      <a href="https://go.hotmart.com/F105964457X" class="btn-main">QUERO O MÉTODO — R$57 →</a>
+    <p class="section-label reveal">O que você vai aprender</p>
+    <h2 class="method-headline reveal">
+      Estratégia que sangrou<br>antes de <em>ensinar.</em>
+    </h2>
+    <p class="method-sub reveal">
+      Quatro pilares que constroem um negócio que cresce todo mês
+      a partir da própria base — sem depender de anúncio, de sorte
+      ou de você estar presente em tudo.
+    </p>
+    <div class="method-grid">
+      <div class="method-card reveal">
+        <p class="method-number">01</p>
+        <p class="method-title">Diagnóstico Real</p>
+        <p class="method-desc">Onde está o dinheiro que você já tem mas não enxerga. A maioria dobra o faturamento antes de gastar R$1 em anúncio.</p>
+      </div>
+      <div class="method-card reveal">
+        <p class="method-number">02</p>
+        <p class="method-title">Sistema de Indicação Ativa</p>
+        <p class="method-desc">Transformar clientes satisfeitos em motor de crescimento. Previsível. Orgânico. Sem depender de tráfego pago.</p>
+      </div>
+      <div class="method-card reveal">
+        <p class="method-number">03</p>
+        <p class="method-title">Precificação que Cresce</p>
+        <p class="method-desc">Cobrar o que vale — sem medo, sem desculpa. A dignidade de receber pelo que você entrega de verdade.</p>
+      </div>
+      <div class="method-card reveal">
+        <p class="method-number">04</p>
+        <p class="method-title">Equipe que Não Depende de Você</p>
+        <p class="method-desc">O dia que minha secretária bateu 100 agendamentos sozinha foi o dia que entendi o que é liberdade de verdade.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- BÔNUS -->
-<section class="bonus">
+<div class="divider-full container"></div>
+
+<!-- PROOF -->
+<section class="proof">
   <div class="container">
-    <div class="section-label">Bônus exclusivos</div>
-    <h2>Você Recebe <span>Muito Mais</span></h2>
-    <div class="bonus-list">
-      <div class="bonus-card">
-        <div class="bonus-num">1</div>
-        <div class="bonus-info">
-          <h4>Planilha de Reativação de Clientes</h4>
-          <p>Modelo pronto para organizar sua base e saber exatamente quem contactar primeiro.</p>
-          <div class="bonus-price"><s>R$47</s> — GRÁTIS</div>
+    <p class="section-label reveal">Resultado real</p>
+    <h2 class="proof-headline reveal">
+      Método que já está<br><em>funcionando.</em>
+    </h2>
+
+    <div class="proof-card reveal">
+      <p class="proof-text">
+        Chegaram com uma empresa de brindes funcionando mas travada.
+        A estratégia foi construída do zero para o negócio deles —
+        não uma fórmula genérica, mas um plano moldado para a realidade que tinham.
+        Hoje estão gerando indicações de forma ativa e consistente.
+      </p>
+      <div class="proof-author">
+        <div class="proof-initial">R</div>
+        <div>
+          <p class="proof-name">Renan & Jéssica</p>
+          <p class="proof-role">Empresa de Brindes — Clientes ARKHE</p>
         </div>
       </div>
-      <div class="bonus-card">
-        <div class="bonus-num">2</div>
-        <div class="bonus-info">
-          <h4>Scripts de Mensagem Prontos</h4>
-          <p>10 mensagens testadas para reativar clientes pelo WhatsApp sem parecer vendedor chato.</p>
-          <div class="bonus-price"><s>R$37</s> — GRÁTIS</div>
-        </div>
-      </div>
-      <div class="bonus-card">
-        <div class="bonus-num">3</div>
-        <div class="bonus-info">
-          <h4>Checklist de Implementação</h4>
-          <p>Passo a passo para aplicar o método na primeira semana e ver resultado rápido.</p>
-          <div class="bonus-price"><s>R$27</s> — GRÁTIS</div>
-        </div>
-      </div>
+      <p class="proof-result">→ Case ativo — já gerando indicações recorrentes</p>
     </div>
   </div>
 </section>
 
-<!-- PARA QUEM -->
-<section class="forwho">
-  <div class="container">
-    <div class="section-label">Para quem é</div>
-    <h2>Esse Ebook foi Feito <span>para Você</span></h2>
-    <ul class="forwho-list">
-      <li><span style="color:var(--green)">→</span> Dono de salão, barbearia ou estética</li>
-      <li><span style="color:var(--green)">→</span> Clínica médica, odontológica ou de estética</li>
-      <li><span style="color:var(--green)">→</span> Personal trainer ou profissional de saúde</li>
-      <li><span style="color:var(--green)">→</span> Prestador de serviço com carteira de clientes</li>
-      <li><span style="color:var(--green)">→</span> Empresário que quer parar de depender de anúncio</li>
-      <li><span style="color:var(--green)">→</span> Qualquer negócio que já tenha clientes mas não os ativa</li>
-    </ul>
-  </div>
-</section>
+<div class="divider-full container"></div>
 
-<!-- AUTOR -->
-<section class="author">
-  <div class="container">
-    <div class="section-label">Quem ensina</div>
-    <h2>Diogo <span>Lobo</span></h2>
-    <div class="author-card">
-      <div class="author-avatar">DL</div>
-      <div>
-        <div class="author-name">Diogo Lobo</div>
-        <div class="author-role">Estrategista Comercial</div>
-        <div class="author-bio">Ex-dono de clínica e casa de festas. Faturei R$4,5 milhões aplicando o Método Indicação Ativa nos meus próprios negócios. Hoje ensino empresários a replicar esse resultado sem gastar com anúncio.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- OFERTA -->
+<!-- OFFER -->
 <section class="offer">
-  <div class="container" style="text-align:center;">
-    <div class="section-label">Oferta</div>
-    <h2>Acesso Completo por <span>Muito Menos</span> do que Vale</h2>
-    <div class="price-old">De R$327</div>
-    <div class="price-new">R$57</div>
-    <div class="price-installment">ou <strong>3x de R$20,65</strong> sem juros</div>
-    <a href="https://go.hotmart.com/F105964457X" class="btn-main">QUERO O MÉTODO AGORA →</a>
-    <div class="guarantee">🛡️ Garantia de 7 dias. Se não gostar, devolvemos 100% do seu dinheiro.</div>
+  <div class="container">
+    <p class="section-label reveal" style="text-align:center">O material</p>
+    <div class="offer-box reveal">
+      <h2 class="offer-title">
+        O Método de <em>Dobrar<br>o Faturamento em 90 Dias</em>
+      </h2>
+      <p class="offer-desc">
+        O ebook que concentra a estratégia moldada para negócios entre
+        R$25k e R$150k/mês — que querem crescer usando o que já têm.
+      </p>
+      <ul class="offer-items">
+        <li class="offer-item">
+          <span class="offer-check">◆</span>
+          <span>Os 4 pilares do método — diagnóstico, indicação, precificação e equipe</span>
+        </li>
+        <li class="offer-item">
+          <span class="offer-check">◆</span>
+          <span>Por que tudo que você tentou até agora não escalou — e o que muda</span>
+        </li>
+        <li class="offer-item">
+          <span class="offer-check">◆</span>
+          <span>A estratégia real por trás de R$600.000 em 3 meses com 3 pessoas</span>
+        </li>
+        <li class="offer-item">
+          <span class="offer-check">◆</span>
+          <span>O próximo passo para quem quer aplicar o método com acompanhamento direto</span>
+        </li>
+      </ul>
+      <div class="offer-price-block">
+        <p class="offer-original">De R$327</p>
+        <p class="offer-price"><sup>R$</sup>57</p>
+        <p class="offer-price-note">Acesso imediato · Pagamento único</p>
+      </div>
+      <a href="https://go.hotmart.com/F105964457X" class="btn-gold" target="_blank">
+        Quero o Método Agora
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider-full container"></div>
+
+<!-- PROMISE -->
+<section class="promise">
+  <div class="container">
+    <p class="section-label reveal">A promessa</p>
+    <h2 class="promise-headline reveal">
+      Um negócio que cresce todo mês<br>a partir da <em>própria base.</em>
+    </h2>
+    <p class="promise-body reveal">
+      Sem depender de anúncio, de sorte ou de você estar presente em tudo.<br><br>
+      Financeiro: faturamento previsível.<br>
+      Emocional: leveza de quem construiu algo que roda.<br>
+      Profissional: equipe que não depende de você.<br>
+      Identidade: de sobrevivente a referência.
+    </p>
   </div>
 </section>
 
 <!-- FAQ -->
 <section class="faq">
   <div class="container">
-    <div class="section-label">Dúvidas frequentes</div>
-    <h2>Perguntas <span>Frequentes</span></h2>
-    <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-q">Para que tipo de negócio funciona?</div>
-        <div class="faq-a">Qualquer negócio que tenha clientes. Salão, clínica, barbearia, academia, prestador de serviço, comércio local — se você tem uma base de clientes, o método funciona.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Precisa ter muitos clientes para funcionar?</div>
-        <div class="faq-a">Não. Com 50 clientes já é possível aplicar o método e ver resultado. Quanto mais clientes, maior o resultado — mas não precisa de uma grande base para começar.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Como recebo o ebook?</div>
-        <div class="faq-a">Imediatamente após a confirmação do pagamento. Você recebe um e-mail com o link de acesso para baixar o ebook em PDF.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">E se eu não gostar?</div>
-        <div class="faq-a">Você tem 7 dias de garantia total. Se por qualquer motivo não ficar satisfeito, basta entrar em contato e devolvemos 100% do seu dinheiro. Sem perguntas.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Preciso de conhecimento técnico?</div>
-        <div class="faq-a">Zero. O ebook foi escrito para ser simples e direto. Se você sabe usar WhatsApp, consegue aplicar o método.</div>
-      </div>
+    <p class="section-label reveal">Perguntas frequentes</p>
+    <h2 class="faq-headline reveal">Antes de decidir</h2>
+
+    <div class="faq-item reveal">
+      <p class="faq-q">Para quem é esse material?</p>
+      <p class="faq-a">Para empresários que já faturam entre R$25.000 e R$150.000 por mês e estão travados no crescimento. Se você ainda está construindo o negócio do zero, o momento ainda não é esse — mas vai chegar.</p>
+    </div>
+
+    <div class="faq-item reveal">
+      <p class="faq-q">É mais um curso genérico de vendas?</p>
+      <p class="faq-a">Não. <strong>Método universal é mentira.</strong> Esse material parte de casos reais, com negócios reais, que aplicaram estratégias moldadas para a realidade deles — não copiadas de um guru que nunca abriu empresa.</p>
+    </div>
+
+    <div class="faq-item reveal">
+      <p class="faq-q">E depois do ebook?</p>
+      <p class="faq-a">A última página do material apresenta uma Análise Estratégica gratuita — onde você preenche os dados do seu negócio e agenda uma conversa direta. Para quem quer aplicar o método com acompanhamento, existe a consultoria ARKHE.</p>
+    </div>
+
+    <div class="faq-item reveal">
+      <p class="faq-q">Quem é Diogo Lobo?</p>
+      <p class="faq-a">Estrategista comercial. Comprou uma clínica sem dinheiro em 2023 e chegou a R$600.000 em 3 meses. <strong>Método que sangrou antes de ensinar.</strong> Estratégia moldada para o seu negócio — não para o do guru.</p>
     </div>
   </div>
 </section>
 
-<!-- FECHAMENTO -->
-<div class="close-section">
+<!-- FINAL CTA -->
+<section class="final-cta">
   <div class="container">
-    <h2>A Escolha é <span>Simples</span></h2>
-    <p>Você pode continuar <strong>esperando o cliente lembrar de você</strong>, gastando com anúncio que para quando você para de pagar, vendo o concorrente crescer sem entender por quê.<br><br>
-    Ou pode aprender o método que me fez faturar <strong>R$4,5 milhões</strong> ativando os clientes que eu já tinha.</p>
-    <a href="https://go.hotmart.com/F105964457X" class="btn-main">QUERO O MÉTODO — R$57 →</a>
-    <span class="btn-sub">🛡️ Garantia de 7 dias • Acesso imediato • PDF para download</span>
+    <h2 class="final-headline reveal">
+      Daqui 12 meses você pode<br>estar no mesmo lugar.<br>
+      Ou pode ter <em>dobrado.</em>
+    </h2>
+    <p class="final-sub reveal">
+      A escolha custa R$57.<br>
+      A inação não tem preço — e cobra muito mais.
+    </p>
+    <a href="https://go.hotmart.com/F105964457X" class="btn-gold reveal" target="_blank">
+      Quero o Método — R$57
+    </a>
+    <span class="btn-price reveal" style="opacity:1">
+      <s>De R$327</s> &nbsp;→&nbsp; <strong>R$57</strong> — acesso imediato
+    </span>
+    <div class="divider"></div>
+    <p style="font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--gold-light); opacity: 0.8;" class="reveal">
+      "Quem aprende não depende."
+    </p>
   </div>
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Diogo Lobo — Estrategista Comercial</p>
-  <p style="margin-top:6px;"><a href="#">@odiogolobo</a> • (48) 99696-0043</p>
-  <p style="margin-top:6px;"><a href="#">Política de Privacidade</a> • <a href="#">Termos de Uso</a></p>
+  <div class="container">
+    <p class="footer-name">Diogo Lobo</p>
+    <p class="footer-bordao">"Quem aprende não depende."</p>
+    <p class="footer-links">@odiogolobo &nbsp;·&nbsp; (48) 99696-0043 &nbsp;·&nbsp; odiogolobo.github.io</p>
+  </div>
 </footer>
 
-<!-- FLOATING CTA -->
-<div class="floating">
-  <div>
-    <div class="floating-label">Acesso imediato</div>
-    <div class="floating-price">R$57</div>
+<!-- STICKY CTA (mobile) -->
+<div class="sticky-cta">
+  <div class="sticky-cta-text">
+    <strong>R$57 — Acesso Imediato</strong>
+    Método para dobrar em 90 dias
   </div>
-  <a href="https://go.hotmart.com/F105964457X">COMPRAR AGORA →</a>
-</div>
-
-<!-- NOTIFICATION -->
-<div class="notif" id="notif">
-  <strong>🛒 Venda realizada</strong>
-  <span id="notif-name">Amanda S. acabou de comprar o ebook</span>
+  <a href="https://go.hotmart.com/F105964457X" class="btn-sticky" target="_blank">Quero</a>
 </div>
 
 <script>
-  const names = [
-    "Amanda S.", "Carlos M.", "Fernanda L.", "Ricardo T.",
-    "Juliana P.", "Marcos A.", "Patricia R.", "Bruno C.",
-    "Camila F.", "Eduardo S.", "Larissa M.", "Diego N."
-  ];
-  function showNotif() {
-    const notif = document.getElementById('notif');
-    const name = names[Math.floor(Math.random() * names.length)];
-    document.getElementById('notif-name').textContent = name + ' acabou de comprar o ebook';
-    notif.style.display = 'block';
-    notif.style.animation = 'none';
-    notif.offsetHeight;
-    notif.style.animation = 'slideIn 0.4s ease';
-    setTimeout(() => { notif.style.display = 'none'; }, 4000);
-  }
-  setTimeout(showNotif, 5000);
-  setInterval(showNotif, 25000);
-</script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
 
+  reveals.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
